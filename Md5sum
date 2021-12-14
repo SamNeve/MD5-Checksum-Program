@@ -1,0 +1,64 @@
+#!/bin/bash
+
+
+#Watch this script command - sudo watch -n 40 -d /var/log/messages.2
+
+
+#Directories we are watching - (/usr /tmp /etc /var)
+
+#/usr look through
+usr_one="/usr/*";
+usr_two="/usr/*/*";
+usr_three="/usr/*/*/*";
+#Master /usr which looks three layers deep into /usr
+#usr_master= [$usr_one $usr_two $usr_three];
+
+
+#/tmp look up
+tmp_one="/tmp/*";
+tmp_two="/tmp/*/*";
+tmp_three="/tmp/*/*/*;
+#Master /tmp which looks three layers deep into /tmp
+#tmp_master= [$tmp_one $tmp_two $tmp_three];
+
+
+#/etc look up
+etc_one="/etc/*";
+etc_two="/etc/*/*";
+etc_three="/etc/*/*/*";
+#Master /etc which looks three layers deep into /etc
+#etc_master= [$etc_one $etc_two $etc_three];
+
+
+#/var look up
+var_one="/var/*";
+var_two="/var/*/*;
+var_three="/var/*/*/*";
+#Master /var which looks three layers deep into /var
+#var_master= [$var_one $var_two $var_three];
+
+
+#Infanent Loop
+for (( ; ; ))
+do
+
+#Creating recursive checksums for /usr,/tmp,/etc,/var.
+        sudo md5sum $usr_one $usr_two $usr_three $tmp_one $tmp_two $tmp_three $etc_one $etc_two $etc_three $var_one $var_two $var_three  * > /var/log/messag.3
+#Checks against the checksums created above.
+        sudo md5sum -c messages.3
+
+#Tells user id there is an error and sends to a log file
+        if [ messages.3 != "FAILED" ]
+        then
+               #I AM HAVING ISSUES HERE SENDING THE FAILED CHECKSUM TO A LOG I CREATED CALLED faillog.1 (ANY IDEAS)
+               cp  messages.3 /var/log/faillog.1 | grep "FAILED"
+               echo -e "\n\nThe failed md5 checksum has been sent to - /var/logs/faillog.1";
+        fi
+
+#CTRL+C to kill the program
+        echo -e "\nHit [CTRL+C] to kill the program or it will run again in 40 Seconds\n\n";
+
+#Sleeps the program for 40 seconds and then runs again 
+        sleep 40
+
+done
