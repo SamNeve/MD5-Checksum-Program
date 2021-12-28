@@ -16,8 +16,8 @@ do
 
 
 #Tells user id there is an error and sends to a log file
-date >> /var/log/faillog.1
-cat messages.4 | grep "FAILED" >> /var/log/faillog.1
+        date >> /var/log/faillog.1
+        cat messages.4 | grep "FAILED" >> /var/log/faillog.1
 
 #CTRL+C to kill the program
         echo -e "\nHit [CTRL+C] to kill the program or it will run again in 30 Seconds\n\n";
