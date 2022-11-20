@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Watch command if output isnt MASSIVE - watch -n1 /var/log/faillog.1
-#Watch Command if output is wrong - watch -n1 tail -10 /var/log/faillog.1
+#Watch Command if output is long - watch -n1 tail -10 /var/log/faillog.1
 
 #Directories we are watching - (/usr /tmp /etc /var /$PATH)
 
